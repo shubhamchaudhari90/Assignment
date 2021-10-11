@@ -1,0 +1,136 @@
+<html>
+<head>
+    <title>
+        Registration
+    </title>    
+</head>
+<body>
+<div style="width: 550px;">
+    <h1>Registration form</h1>
+</div>
+     <div>
+        <table border="1" style="width: 700px;">        
+            <tr>
+                <td style="width: 200px;">
+                    Full Name
+                </td>
+                <td style="width: 200px;">
+                    <input type="text" id="txtFullName" onkeypress="return lettersOnly(event)" onfocusout="fullNameFoucuOut()" />
+                </td>
+                <td style="width: 300px;">
+                    <label id="errFullName" style="visibility: hidden;">Full name is required</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email
+                </td>
+                <td>
+                    <input type="email" id="txtEmail" onfocusout="emailFoucuOut()"/>
+                </td>
+                <td>
+                    <label id="errEmail" style="visibility: hidden;"> Email is empty or Email is not valid</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone number
+                </td>
+                <td>
+                    <input type="text" id="txtPhoneNumber" onkeypress="return numbersOnly(event)" onfocusout="phoneFoucuOut()"/>
+                </td>
+                <td>
+                    <label id="errPhoneNumber" style="visibility: hidden;">Phone number is empty</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="button" id="btnSubmit" onclick="myFunction()" value="Submit">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+
+        function lettersOnly() 
+        {
+            var charCode = event.keyCode;
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8 || charCode == 32 ){
+                return true;
+            } else{
+                return false;
+            }
+        }   
+
+        
+
+        function numbersOnly(){
+            //isNaN function returns true if Not A Number
+            if (isNaN(event.key)) { 
+                return false;
+            } else{
+                var phoneNumber = document.getElementById("txtPhoneNumber").value;
+                if(phoneNumber.length==3)
+                {
+                    document.getElementById("txtPhoneNumber").value = "("+document.getElementById("txtPhoneNumber").value+") - "
+
+                }
+                if(phoneNumber.length==11)
+                {
+                    document.getElementById("txtPhoneNumber").value = document.getElementById("txtPhoneNumber").value+" - "
+
+                }
+                if(phoneNumber.length==18){
+                    return false;
+                }
+                return true;
+            }
+        }
+            
+
+        function validateFullName(){
+            var fullName = document.getElementById("txtFullName").value;
+            fullName.split(" ");
+        }
+
+        function emailFoucuOut(){
+            var isEmailValid = validateEmail();
+            if(isEmailValid){
+                document.getElementById("errEmail").style.visibility = "hidden";
+            }else{
+                document.getElementById("errEmail").style.visibility = "visible";
+            }
+        }
+
+        function validateEmail() {
+            var email = document.getElementById("txtEmail").value;
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+            
+                
+
+        function fullNameFoucuOut(){
+            var isfullName = validateFullName();
+            if(isfullName){
+                document.getElementById("errFullName").style.visibility = "hidden";
+            }else{
+                document.getElementById("errFullName").style.visibility = "visible";
+            }
+        }
+
+        function phoneFoucuOut(){
+            var phoneNumber = document.getElementById("txtPhoneNumber").value;
+                if(phoneNumber.length<18){
+                    document.getElementById("errPhoneNumber").style.visibility = "visible";
+                    return false;
+                }
+                else{
+                    document.getElementById("errPhoneNumber").style.visibility = "hidden";
+                    return true;
+                }
+        }
+    </script> 
+</body>
+</html>
